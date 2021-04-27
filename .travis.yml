@@ -8,8 +8,7 @@ before_install:
     - docker build -t marcosjampietri/docker-react -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run marcosjampietri/docker-react npm test -- --coverage
-    # - docker run -e CI=true marcosjampietri/docker-react npm run test
+    - docker run -e CI=true marcosjampietri/docker-react npm test
 
 after_success:
     - docker build -t marcosjampietri/multi-client ./client
@@ -17,7 +16,7 @@ after_success:
     - docker build -t marcosjampietri/multi-server ./server
 
     - echo "$DOCKER_ID" | docker login -u "$DOCKER_PASSWORD" --password-stdin
-    
+
     - docker push marcosjampietri/multi-client
     - docker push marcosjampietri/multi-nginx
     - docker push marcosjampietri/multi-server
