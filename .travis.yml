@@ -15,7 +15,7 @@ after_success:
     - docker build -t marcosjampietri/multi-nginx ./nginx
     - docker build -t marcosjampietri/multi-server ./server
 
-    - echo "$DOCKER_ID" | docker login -u "$DOCKER_PASSWORD" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     - docker push marcosjampietri/multi-client
     - docker push marcosjampietri/multi-nginx
