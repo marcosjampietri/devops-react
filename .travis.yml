@@ -1,0 +1,29 @@
+language: generic
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t marcosjampietri/docker-react -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run marcosjampietri/docker-react npm test -- --coverage
+    # - docker run -e CI=true marcosjampietri/docker-react npm run test
+    
+after_success:
+    - docker build -t marcosjampietri/multi-client ./client
+    - docker build -t marcosjampietri/multi-nginx ./nginx
+    - docker build -t marcosjampietri/multi-server ./server
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker"
+    env: "docker-env"
+    bucket_name: "elasticbeanstalk-us-east-2-923445559289"
+    bucket_path: "docker"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY

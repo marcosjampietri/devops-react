@@ -1,0 +1,4 @@
+{
+  "apexskier.typescript.config.isEnabledForJavascript" : "Enable",
+  "apexskier.typescript.config.organizeImportsOnSave" : "false"
+}
