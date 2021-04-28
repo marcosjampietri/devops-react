@@ -22,6 +22,7 @@ after_success:
     - docker push marcosjampietri/multi-server
 
 deploy:
+    skip_cleanup: true
     provider: elasticbeanstalk
     region: eu-west-2
     app: devops-marcos
@@ -30,6 +31,6 @@ deploy:
     bucket_path: devops-marcos
     on:
         branch: main
-    access_key_id: ${AWS_ACCESS_KEY}
+    access_key_id: "$AWS_ACCESS_KEY"
     secret_access_key:
-        secure: ${AWS_SECRET_KEY}
+        secure: "$AWS_SECRET_KEY"
