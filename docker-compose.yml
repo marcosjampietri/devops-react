@@ -21,6 +21,8 @@ services:
         environment:
             - DATABASE=${DATABASE}
             - PORT=${PORT}
+        env_file:
+            - ./server/.env
     mongo:
         image: "mongo"
         ports:
